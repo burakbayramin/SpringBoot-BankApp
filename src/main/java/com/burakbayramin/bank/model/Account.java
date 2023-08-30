@@ -75,4 +75,28 @@ public class Account {
     public void setTransaction(Set<Transaction> transaction) {
         this.transaction = transaction;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Account account)) return false;
+
+        if (getId() != null ? !getId().equals(account.getId()) : account.getId() != null) return false;
+        if (getBalance() != null ? !getBalance().equals(account.getBalance()) : account.getBalance() != null)
+            return false;
+        if (getCreationDate() != null ? !getCreationDate().equals(account.getCreationDate()) : account.getCreationDate() != null)
+            return false;
+        if (getCustomer() != null ? !getCustomer().equals(account.getCustomer()) : account.getCustomer() != null)
+            return false;
+        return getTransaction() != null ? getTransaction().equals(account.getTransaction()) : account.getTransaction() == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getId() != null ? getId().hashCode() : 0;
+        result = 31 * result + (getBalance() != null ? getBalance().hashCode() : 0);
+        result = 31 * result + (getCreationDate() != null ? getCreationDate().hashCode() : 0);
+        result = 31 * result + (getCustomer() != null ? getCustomer().hashCode() : 0);
+        return result;
+    }
 }
