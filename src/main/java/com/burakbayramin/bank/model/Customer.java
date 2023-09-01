@@ -2,6 +2,7 @@ package com.burakbayramin.bank.model;
 
 import jakarta.persistence.*;
 
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -63,20 +64,21 @@ public class Customer {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Customer customer)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
 
-        if (getId() != null ? !getId().equals(customer.getId()) : customer.getId() != null) return false;
-        if (getName() != null ? !getName().equals(customer.getName()) : customer.getName() != null) return false;
-        if (getSurname() != null ? !getSurname().equals(customer.getSurname()) : customer.getSurname() != null)
-            return false;
-        return getAccounts() != null ? getAccounts().equals(customer.getAccounts()) : customer.getAccounts() == null;
+        Customer customer = (Customer) o;
+
+        if (!Objects.equals(id, customer.id)) return false;
+        if (!Objects.equals(name, customer.name)) return false;
+        if (!Objects.equals(surname, customer.surname)) return false;
+        return Objects.equals(accounts, customer.accounts);
     }
 
     @Override
     public int hashCode() {
-        int result = getId() != null ? getId().hashCode() : 0;
-        result = 31 * result + (getName() != null ? getName().hashCode() : 0);
-        result = 31 * result + (getSurname() != null ? getSurname().hashCode() : 0);
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (surname != null ? surname.hashCode() : 0);
         return result;
     }
 }

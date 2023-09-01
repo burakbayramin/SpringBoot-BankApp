@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Entity
 public class Transaction {
@@ -65,20 +66,23 @@ public class Transaction {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Transaction that)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
 
-        if (getId() != null ? !getId().equals(that.getId()) : that.getId() != null) return false;
-        if (getAmount() != null ? !getAmount().equals(that.getAmount()) : that.getAmount() != null) return false;
-        if (getTransactionDate() != null ? !getTransactionDate().equals(that.getTransactionDate()) : that.getTransactionDate() != null)
+        Transaction that = (Transaction) o;
+
+        if (!Objects.equals(id, that.id)) return false;
+        if (!Objects.equals(amount, that.amount)) return false;
+        if (!Objects.equals(transactionDate, that.transactionDate))
             return false;
-        return getAccount() != null ? getAccount().equals(that.getAccount()) : that.getAccount() == null;
+        return Objects.equals(account, that.account);
     }
 
     @Override
     public int hashCode() {
-        int result = getId() != null ? getId().hashCode() : 0;
-        result = 31 * result + (getAmount() != null ? getAmount().hashCode() : 0);
-        result = 31 * result + (getTransactionDate() != null ? getTransactionDate().hashCode() : 0);
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (amount != null ? amount.hashCode() : 0);
+        result = 31 * result + (transactionDate != null ? transactionDate.hashCode() : 0);
         return result;
     }
+
 }

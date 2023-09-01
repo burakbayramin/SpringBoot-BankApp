@@ -1,10 +1,10 @@
 package com.burakbayramin.bank.model;
 
 import jakarta.persistence.*;
-import org.hibernate.annotations.GenericGenerator;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -23,7 +23,7 @@ public class Account {
     private Customer customer;
 
     @OneToMany(mappedBy = "account", fetch = FetchType.LAZY)
-    private Set<Transaction> transaction;
+    private Set<Transaction> transactions;
 
     public Account() {
     }
@@ -33,7 +33,7 @@ public class Account {
         this.balance = balance;
         this.creationDate = creationDate;
         this.customer = customer;
-        this.transaction = transaction;
+        this.transactions = transaction;
     }
 
     public String getId() {
@@ -68,35 +68,35 @@ public class Account {
         this.customer = customer;
     }
 
-    public Set<Transaction> getTransaction() {
-        return transaction;
+    public Set<Transaction> getTransactions() {
+        return transactions;
     }
 
-    public void setTransaction(Set<Transaction> transaction) {
-        this.transaction = transaction;
+    public void setTransactions(Set<Transaction> transactions) {
+        this.transactions = transactions;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Account account)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
 
-        if (getId() != null ? !getId().equals(account.getId()) : account.getId() != null) return false;
-        if (getBalance() != null ? !getBalance().equals(account.getBalance()) : account.getBalance() != null)
+        Account account = (Account) o;
+
+        if (!Objects.equals(id, account.id)) return false;
+        if (!Objects.equals(balance, account.balance)) return false;
+        if (!Objects.equals(creationDate, account.creationDate))
             return false;
-        if (getCreationDate() != null ? !getCreationDate().equals(account.getCreationDate()) : account.getCreationDate() != null)
-            return false;
-        if (getCustomer() != null ? !getCustomer().equals(account.getCustomer()) : account.getCustomer() != null)
-            return false;
-        return getTransaction() != null ? getTransaction().equals(account.getTransaction()) : account.getTransaction() == null;
+        if (!Objects.equals(customer, account.customer)) return false;
+        return Objects.equals(transactions, account.transactions);
     }
 
     @Override
     public int hashCode() {
-        int result = getId() != null ? getId().hashCode() : 0;
-        result = 31 * result + (getBalance() != null ? getBalance().hashCode() : 0);
-        result = 31 * result + (getCreationDate() != null ? getCreationDate().hashCode() : 0);
-        result = 31 * result + (getCustomer() != null ? getCustomer().hashCode() : 0);
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (balance != null ? balance.hashCode() : 0);
+        result = 31 * result + (creationDate != null ? creationDate.hashCode() : 0);
+        result = 31 * result + (customer != null ? customer.hashCode() : 0);
         return result;
     }
 }
