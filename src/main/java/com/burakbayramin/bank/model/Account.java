@@ -36,6 +36,13 @@ public class Account {
         this.transactions = transaction;
     }
 
+    public Account(BigDecimal balance, LocalDateTime creationDate, Customer customer) {
+        this.id = "";
+        this.balance = balance;
+        this.creationDate = creationDate;
+        this.customer = customer;
+    }
+
     public String getId() {
         return id;
     }

@@ -17,7 +17,7 @@ public class Transaction {
 
     private LocalDateTime transactionDate;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "account_id", nullable = false)
     private Account account;
 
@@ -26,6 +26,13 @@ public class Transaction {
 
     public Transaction(String id, BigDecimal amount, LocalDateTime transactionDate, Account account) {
         this.id = id;
+        this.amount = amount;
+        this.transactionDate = transactionDate;
+        this.account = account;
+    }
+
+    public Transaction(BigDecimal amount, LocalDateTime transactionDate, Account account) {
+        this.id = null;
         this.amount = amount;
         this.transactionDate = transactionDate;
         this.account = account;
